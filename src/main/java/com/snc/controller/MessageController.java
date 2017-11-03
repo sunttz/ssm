@@ -25,6 +25,8 @@ public class MessageController {
     public Object getMessageList(HttpServletRequest request, Model model) {
         String starttime = request.getParameter("starttime");
         String endtime = request.getParameter("endtime");
+        String hostip = request.getParameter("hostip");
+        String port = request.getParameter("port");
         int pageNo = Integer.parseInt(request.getParameter("page"));
         int pageSize = Integer.parseInt(request.getParameter("rows"));
         // 封装查询参数
@@ -34,6 +36,12 @@ public class MessageController {
         }
         if (!StringUtils.isEmpty(endtime)) {
             queryMap.put("endtime", endtime);
+        }
+        if (!StringUtils.isEmpty(hostip)) {
+            queryMap.put("hostip", "%"+hostip+"%");
+        }
+        if (!StringUtils.isEmpty(port)) {
+            queryMap.put("port", port);
         }
         PageInfo<Message> messagePageInfo = messageService.queryByPage(queryMap, pageNo, pageSize);
         return messagePageInfo;

@@ -36,6 +36,13 @@
     <if test="endtime != null and endtime !=''">
       AND jmxtime &lt; #{endtime,jdbcType=TIMESTAMP}
     </if>
+    <if test="hostip != null and hostip !=''">
+      AND hostip like #{hostip,jdbcType=VARCHAR}
+    </if>
+    <if test="port != null and port !=''">
+      AND port = #{port,jdbcType=VARCHAR}
+    </if>
+    ORDER BY id DESC
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     <!--
