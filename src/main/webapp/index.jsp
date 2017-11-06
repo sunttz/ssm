@@ -6,7 +6,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<script type="text/javascript">
 		$(function(){
-
 			var jqOption;
             jqOption = {
                 url: 'message/messageList.do',//组件创建完成之后请求数据的url
@@ -79,6 +78,26 @@
                 }).trigger("reloadGrid");
             });
 
+			// ip选择框
+            $.ajax({
+                url:'${base}/message/getHostips.do',
+                sync:false,
+                type : 'post',
+                data : {},
+                dataType : "json",
+                error : function(data) {
+                    console.info("网络异常");
+                    return false;
+                },
+                success : function(data) {
+                    data = eval(data);
+                    var options = "";
+					for(var i=0; i<data.length; i++){
+						options += '<option value="'+data[i]+'">'+data[i]+'</option>';
+                    }
+					$("#hostip").append(options);
+                }
+            });
 
 		});
 
@@ -105,7 +124,9 @@
 					</div>
 					<label for="hostip" class="control-label pull-left" style="margin: 5px 0px 0px 10px;">IP：</label>
 					<div class="col-sm-2">
-						<input type="text" name="hostip" class="form-control" id="hostip" />
+						<select name="hostip" class="form-control" id="hostip">
+							<option value="">---请选择---</option>
+						</select>
 					</div>
 					<label for="port" class="control-label pull-left" style="margin: 5px 0px 0px 10px;">端口：</label>
 					<div class="col-sm-2">

@@ -26,4 +26,9 @@ public class MessageServiceImpl implements MessageService {
         PageInfo<Message> page = new PageInfo<Message>(messages);
         return page;
     }
+
+    @Override
+    public List<String> selectHostips() {
+        return messageDao.selectHostips();
+    }
 }

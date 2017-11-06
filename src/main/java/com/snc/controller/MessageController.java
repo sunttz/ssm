@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -38,12 +39,19 @@ public class MessageController {
             queryMap.put("endtime", endtime);
         }
         if (!StringUtils.isEmpty(hostip)) {
-            queryMap.put("hostip", "%"+hostip+"%");
+            queryMap.put("hostip", hostip);
         }
         if (!StringUtils.isEmpty(port)) {
             queryMap.put("port", port);
         }
         PageInfo<Message> messagePageInfo = messageService.queryByPage(queryMap, pageNo, pageSize);
         return messagePageInfo;
+    }
+
+    @RequestMapping(value = "/getHostips")
+    @ResponseBody
+    public Object getHostips(Model model){
+        List<String> ips = messageService.selectHostips();
+        return ips;
     }
 }

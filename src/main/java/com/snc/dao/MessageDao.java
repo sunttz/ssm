@@ -60,4 +60,10 @@ public interface MessageDao {
      * @return
      */
     List<Message> selectMessages(Map queryMap);
+
+    /**
+     * ip列表
+     * @return
+     */
+    List<String> selectHostips();
 }
