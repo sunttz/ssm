@@ -99,6 +99,29 @@
                 }
             });
 
+            // 端口选择框
+            $("#hostip").change(function () {
+                $.ajax({
+                    url:'${base}/message/getPortByIp.do',
+                    sync:false,
+                    type : 'post',
+                    data : {ip:$("#hostip").val()},
+                    dataType : "json",
+                    error : function(data) {
+                        console.info("网络异常");
+                        return false;
+                    },
+                    success : function(data) {
+                        data = eval(data);
+                        var options = '<option value="">请选择</option>';
+                        for(var i=0; i<data.length; i++){
+                            options += '<option value="'+data[i]+'">'+data[i]+'</option>';
+                        }
+                        $("#port").html(options);
+                    }
+                });
+            });
+
 		});
 
         function getLocalTime(nS) {
@@ -110,10 +133,10 @@
 <body>
 
 	<form action="">
-		<div class="container" style="margin: 10px 10px 10px 10px">
+		<div class="container" style="margin: 10px 10px 10px 10px;">
 
 			<div class="form-group">
-				<div class="col-sm-12" style="margin-bottom: 5px;">
+				<div class="col-sm-12" style="margin-bottom: 5px;width: 1240px;">
 					<label for="starttime" class="control-label pull-left" style="margin: 5px 0px 0px 10px;">开始时间：</label>
 					<div class="col-sm-2">
 						<input type="text" name="starttime" class="form-control" id="starttime" onclick="WdatePicker({doubleCalendar:false,dateFmt:'yyyy-MM-dd HH:mm:ss',autoPickDate:true,maxDate:'#F{$dp.$D(\'endtime\')||\'%y-%M-%d %H:%m:%s\'}'});" />
@@ -129,12 +152,16 @@
 						</select>
 					</div>
 					<label for="port" class="control-label pull-left" style="margin: 5px 0px 0px 10px;">端口：</label>
-					<div class="col-sm-2">
-						<input type="text" name="port" class="form-control" id="port" />
-					</div>
 					<div class="col-sm-1">
+						<select name="port" class="form-control" id="port" style="width: 80px;">
+							<option value="">请选择</option>
+						</select>
+					</div>
+					<div>
 						<button type="button" class="btn btn-primary"
 							id="searchBtn">检索</button>
+						<button type="button" class="btn btn-primary"
+								id="alartTrend" onclick="window.location.href='message/messageTrend.do'">告警趋势图</button>
 					</div>
 				</div>
 			</div>
@@ -144,8 +171,5 @@
 			</div>
 		</div>
 	</form>
-
-
-
 </body>
 </html>

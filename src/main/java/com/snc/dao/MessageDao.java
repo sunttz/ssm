@@ -1,6 +1,7 @@
 package com.snc.dao;
 
 import com.snc.entity.Message;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -66,4 +67,23 @@ public interface MessageDao {
      * @return
      */
     List<String> selectHostips();
+
+    /**
+     * 查询指定ip的端口列表
+     * @param ip
+     * @return
+     */
+    List<String> selectPortByIp(@Param("ip") String ip);
+
+    /**
+     * 查询val值列表
+     * @return
+     */
+    List<Map<String, Object>> selectVals(Map queryMap);
+
+    /**
+     * 查询weblogic告警时间
+     * @return
+     */
+    List<Map<String, Object>> selectVals_weblogic(Map queryMap);
 }

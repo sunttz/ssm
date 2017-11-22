@@ -52,6 +52,65 @@
            FROM message) t
     ORDER BY hostip
   </select>
+  <!-- 查询端口列表 -->
+  <select id="selectPortByIp" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT port
+    FROM (SELECT DISTINCT port
+          FROM message
+          WHERE hostip = #{ip,jdbcType=VARCHAR}) aa
+    ORDER BY port
+  </select>
+  <!-- 查询val列表 -->
+  <select id="selectVals" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+    SELECT
+    CASE WHEN locate(#{jqStr,jdbcType=VARCHAR}, content) != 0
+    THEN
+    substr(content, locate(#{jqStr,jdbcType=VARCHAR}, content) + #{addNum,jdbcType=VARCHAR})
+    ELSE '0' END val,
+    jmxtime
+    FROM message
+    WHERE 1 = 1
+    <if test="starttime != null and starttime !=''">
+      AND jmxtime >= #{starttime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="endtime != null and endtime !=''">
+      AND jmxtime &lt; #{endtime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="hostip != null and hostip !=''">
+      AND hostip = #{hostip,jdbcType=VARCHAR}
+    </if>
+    <if test="port != null and port !=''">
+      AND port = #{port,jdbcType=VARCHAR}
+    </if>
+    <if test="alarmKey != null and alarmKey !=''">
+      AND title LIKE #{alarmKey,jdbcType=VARCHAR}
+    </if>
+    ORDER BY jmxtime asc
+  </select>
+  <!-- 查询weblogic告警时间 -->
+  <select id="selectVals_weblogic" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+    SELECT
+    '1' val,
+    jmxtime
+    FROM message
+    WHERE 1 = 1
+    <if test="starttime != null and starttime !=''">
+      AND jmxtime >= #{starttime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="endtime != null and endtime !=''">
+      AND jmxtime &lt; #{endtime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="hostip != null and hostip !=''">
+      AND hostip = #{hostip,jdbcType=VARCHAR}
+    </if>
+    <if test="port != null and port !=''">
+      AND port = #{port,jdbcType=VARCHAR}
+    </if>
+    <if test="alarmKey != null and alarmKey !=''">
+      AND title LIKE #{alarmKey,jdbcType=VARCHAR}
+    </if>
+    ORDER BY jmxtime asc
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     <!--
       WARNING - @mbggenerated

@@ -8,6 +8,7 @@ import com.snc.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,5 +31,44 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public List<String> selectHostips() {
         return messageDao.selectHostips();
+    }
+
+    @Override
+    public List<String> selectPortByIp(String ip) {
+        return messageDao.selectPortByIp(ip);
+    }
+
+    @Override
+    public List<Map<String, Object>> selectVals(Map queryMap) {
+        String alarmType = queryMap.get("alarmType").toString();
+        String jqStr = ""; // 截取字符串
+        String addNum = ""; // 补位数字
+        String alarmKey = ""; // 告警关键字
+        if("jdbc".equals(alarmType)){
+            jqStr = "ConnectionDelayTime = ";
+            addNum = "22";
+            alarmKey = "%JDBC%";
+        }else if("jvm".equals(alarmType)){
+            jqStr = "HeapFreePercent = ";
+            addNum = "18";
+            alarmKey = "%JVM%";
+        }else if("thread".equals(alarmType)){
+            jqStr = "HoggingThreadCount = ";
+            addNum = "21";
+            alarmKey = "%线程独占%";
+        }else if("weblogic".equals(alarmType)){
+            alarmKey = "%weblogic%";
+        }
+        queryMap.put("jqStr",jqStr);
+        queryMap.put("addNum",addNum);
+        queryMap.put("alarmKey",alarmKey);
+
+        List<Map<String, Object>> vals = new ArrayList<>();
+        if("weblogic".equals(alarmType)){
+            vals = messageDao.selectVals_weblogic(queryMap);
+        }else{
+            vals = messageDao.selectVals(queryMap);
+        }
+        return vals;
     }
 }

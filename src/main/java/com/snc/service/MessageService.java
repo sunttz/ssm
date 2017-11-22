@@ -14,4 +14,17 @@ public interface MessageService {
      * @return
      */
     List<String> selectHostips();
+
+    /**
+     * 查询指定ip的端口列表
+     * @param ip
+     * @return
+     */
+    List<String> selectPortByIp(String ip);
+
+    /**
+     * 查询val值列表
+     * @return
+     */
+    List<Map<String, Object>> selectVals(Map queryMap);
 }
