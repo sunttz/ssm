@@ -60,7 +60,7 @@ public class MessageServiceImpl implements MessageService {
             alarmKey = "%weblogic%";
         }else if("threadZz".equals(alarmType)){
             jqStr = "StuckThreadCount = ";
-            alarmKey = "%线程粘滞%";
+            alarmKey = "%粘滞%";
         }
         queryMap.put("jqStr",jqStr);
         //queryMap.put("addNum",addNum);
