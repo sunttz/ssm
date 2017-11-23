@@ -55,7 +55,7 @@ public class MessageServiceImpl implements MessageService {
         }else if("thread".equals(alarmType)){
             jqStr = "HoggingThreadCount = ";
             addNum = "21";
-            alarmKey = "%线程独占%";
+            alarmKey = "%独占%";
         }else if("weblogic".equals(alarmType)){
             alarmKey = "%weblogic%";
         }
