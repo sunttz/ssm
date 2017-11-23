@@ -90,7 +90,8 @@
                 },
                 yAxis: {
                     type: 'value',
-                    boundaryGap: [0, '100%']
+                    boundaryGap: [0, '100%'],
+                    max : 'dataMax'
                 },
                 dataZoom: [{
                     type: 'inside',
@@ -223,7 +224,7 @@
                             };
                             myChart.setOption(option);
                             myChart.hideLoading();
-                        }else if(alarmType == "thread"){
+                        }else if(alarmType == "threadDz"){
                             option = {
                                 xAxis: {
                                     data: date,
@@ -251,6 +252,22 @@
                                         smooth:false,
                                         symbol: 'emptyCircle',
                                         symbolSize : 8,
+                                    }
+                                ]
+                            };
+                            myChart.setOption(option);
+                            myChart.hideLoading();
+                        }else if(alarmType == "threadZz"){
+                            option = {
+                                xAxis: {
+                                    data: date,
+                                },
+                                series: [
+                                    {
+                                        name:'线程粘滞告警（StuckThreadCount）',
+                                        data: data,
+                                        symbol: 'none',
+                                        smooth:true
                                     }
                                 ]
                             };
@@ -319,8 +336,9 @@
                             <option value="">---请选择---</option>
                             <option value="jdbc">JDBC延迟告警</option>
                             <option value="jvm">jvm内存剩余告警</option>
+                            <option value="threadDz">线程独占告警</option>
+                            <option value="threadZz">线程粘滞告警</option>
                             <option value="weblogic">weblogic在关闭告警</option>
-                            <option value="thread">线程独占告警</option>
                         </select>
                     </div>
                     <div style="display: inline-block">

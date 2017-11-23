@@ -30,7 +30,7 @@
                         }
                     }
                 ],
-                rowNum: 20,//一页显示多少条
+                rowNum: 50,//一页显示多少条
                 rownumbers: true,
                 rowList: [20, 50, 100],//可供用户选择一页显示多少条
                 pager: '#pageGridPager',//表格页脚的占位符(一般是div)的id

@@ -65,7 +65,7 @@
     SELECT
     CASE WHEN locate(#{jqStr,jdbcType=VARCHAR}, content) != 0
     THEN
-    substr(content, locate(#{jqStr,jdbcType=VARCHAR}, content) + #{addNum,jdbcType=VARCHAR})
+    SUBSTRING_INDEX(content,#{jqStr,jdbcType=VARCHAR},-1)
     ELSE '0' END val,
     jmxtime
     FROM message
