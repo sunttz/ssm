@@ -61,6 +61,15 @@ public class MessageServiceImpl implements MessageService {
         }else if("threadZz".equals(alarmType)){
             jqStr = "StuckThreadCount = ";
             alarmKey = "%粘滞%";
+        }else if ("sessions".equals(alarmType)) {
+            jqStr = "WebAppComponentRuntime//OpenSessionsCurrentCount = ";
+            alarmKey = "%会话数%";
+        }else if ("socket".equals(alarmType)) {
+            jqStr = "ServerRuntime//OpenSocketsCurrentCount = ";
+            alarmKey = "%套接字%";
+        }else if ("executionThread".equals(alarmType)) {
+            jqStr = "ThreadPoolRuntime//ExecuteThreadTotalCount = ";
+            alarmKey = "%执行线程%";
         }
         queryMap.put("jqStr",jqStr);
         //queryMap.put("addNum",addNum);

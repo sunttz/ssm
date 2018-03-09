@@ -273,6 +273,54 @@
                             };
                             myChart.setOption(option);
                             myChart.hideLoading();
+                        }else if(alarmType == "sessions"){
+                            option = {
+                                xAxis: {
+                                    data: date,
+                                },
+                                series: [
+                                    {
+                                        name:'会话数告警（WebAppComponentRuntime//OpenSessionsCurrentCoun）',
+                                        data: data,
+                                        symbol: 'none',
+                                        smooth:true
+                                    }
+                                ]
+                            };
+                            myChart.setOption(option);
+                            myChart.hideLoading();
+                        }else if(alarmType == "socket"){
+                            option = {
+                                xAxis: {
+                                    data: date,
+                                },
+                                series: [
+                                    {
+                                        name:'套接字告警（ServerRuntime//OpenSocketsCurrentCount）',
+                                        data: data,
+                                        symbol: 'none',
+                                        smooth:true
+                                    }
+                                ]
+                            };
+                            myChart.setOption(option);
+                            myChart.hideLoading();
+                        }else if(alarmType == "executionThread"){
+                            option = {
+                                xAxis: {
+                                    data: date,
+                                },
+                                series: [
+                                    {
+                                        name:'执行线程告警（ThreadPoolRuntime//ExecuteThreadTotalCount）',
+                                        data: data,
+                                        symbol: 'none',
+                                        smooth:true
+                                    }
+                                ]
+                            };
+                            myChart.setOption(option);
+                            myChart.hideLoading();
                         }
                     }else{
                         $("#msgText").html("参数异常");
@@ -339,6 +387,9 @@
                             <option value="threadDz">线程独占告警</option>
                             <option value="threadZz">线程粘滞告警</option>
                             <option value="weblogic">weblogic在关闭告警</option>
+                            <option value="sessions">会话数告警</option>
+                            <option value="socket">套接字告警</option>
+                            <option value="executionThread">执行线程告警</option>
                         </select>
                     </div>
                     <div style="display: inline-block">
