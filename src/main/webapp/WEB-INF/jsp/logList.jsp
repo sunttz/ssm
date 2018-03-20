@@ -8,7 +8,7 @@
 		$(function(){
 			var jqOption;
             jqOption = {
-                url: '/log/getLogList.do',//组件创建完成之后请求数据的url
+                url: '${base}/log/getLogList.do',//组件创建完成之后请求数据的url
                 datatype: "json",//请求数据返回的类型。可选json,xml,txt
                 postData: {starttime: '', endtime: ''},
                 colNames: [ 'IP', '主机名称', '端口', "报错子系统", '报错用户', "报错级别", "线程",'报错编码','报错内容','报错时间'],//jqGrid的列显示名字

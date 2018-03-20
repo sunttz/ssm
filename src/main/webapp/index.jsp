@@ -8,7 +8,7 @@
 		$(function(){
 			var jqOption;
             jqOption = {
-                url: 'message/messageList.do',//组件创建完成之后请求数据的url
+                url: '${base}/message/messageList.do',//组件创建完成之后请求数据的url
                 datatype: "json",//请求数据返回的类型。可选json,xml,txt
                 postData: {starttime: '', endtime: ''},
                 colNames: [ 'IP', '主机名称', '端口', "标题", '规则', "内容", '内置告警时间', "程序插入时间"],//jqGrid的列显示名字
@@ -161,9 +161,9 @@
 						<button type="button" class="btn btn-primary"
 							id="searchBtn">检索</button>
 						<button type="button" class="btn btn-primary"
-								id="alartTrend" onclick="window.location.href='message/messageTrend.do'">告警趋势图</button>
+								id="alartTrend" onclick="window.location.href='${base}/message/messageTrend.do'">告警趋势图</button>
 						<button type="button" class="btn btn-primary"
-								id="logList" onclick="window.location.href='/log/logList.do'">报错日志</button>
+								id="logList" onclick="window.location.href='${base}/log/logList.do'">报错日志</button>
 					</div>
 				</div>
 			</div>
