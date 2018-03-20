@@ -8,22 +8,27 @@
 		$(function(){
 			var jqOption;
             jqOption = {
-                url: 'message/messageList.do',//组件创建完成之后请求数据的url
+                url: '/log/getLogList.do',//组件创建完成之后请求数据的url
                 datatype: "json",//请求数据返回的类型。可选json,xml,txt
                 postData: {starttime: '', endtime: ''},
-                colNames: [ 'IP', '主机名称', '端口', "标题", '规则', "内容", '内置告警时间', "程序插入时间"],//jqGrid的列显示名字
+                colNames: [ 'IP', '主机名称', '端口', "报错子系统", '报错用户', "报错级别", "线程",'报错编码','报错内容','报错时间'],//jqGrid的列显示名字
                 colModel: [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
-                    {name: 'hostip', index: 'hostip', width: '8%', align: "center"},
-                    {name: 'servername', index: 'servername', width: '8%', align: "center"},
-                    {name: 'port', index: 'port', width: '3%', align: "center"},
-                    {name: 'title', index: 'title', width: '15%', align: "center"},
-                    {name: 'rule', index: 'rule', width: '15%', align: "center"},
-                    {name: 'content', index: 'content', width: '20%', align: "center"},
-                    {name: 'watchtime', index: 'watchtime', width: '13%', align: "center"},
+                    {name: 'hostip', index: 'hostip', width: '10%', align: "center"},
+                    {name: 'servername', index: 'servername', width: '12%', align: "center"},
+                    {name: 'port', index: 'port', width: '5%', align: "center"},
+                    {name: 'subsystem', index: 'subsystem', width: '10%', align: "center"},
+                    {name: 'userid', index: 'userid', width: '8%', align: "center",
+						formatter: function (cellvalue, options, row) {
+							return cellvalue.replace("<","").replace(">","");
+                        }},
+                    {name: 'severity', index: 'severity', width: '8%', align: "center"},
+                    {name: 'thread', index: 'thread', width: '15%', align: "center"},
+                    {name: 'msgid', index: 'msgid', width: '8%', align: "center"},
+                    {name: 'message', index: 'message', width: '20%', align: "center"},
                     {
                         name: 'jmxtime',
                         index: 'jmxtime',
-                        width: '10%',
+                        width: '12%',
                         align: "center",
                         formatter: function (cellvalue, options, row) {
                             return getLocalTime(cellvalue)
@@ -80,7 +85,7 @@
 
 			// ip选择框
             $.ajax({
-                url:'${base}/message/getHostips.do',
+                url:'${base}/log/getHostips.do',
                 sync:false,
                 type : 'post',
                 data : {},
@@ -102,7 +107,7 @@
             // 端口选择框
             $("#hostip").change(function () {
                 $.ajax({
-                    url:'${base}/message/getPortByIp.do',
+                    url:'${base}/log/getPortByIp.do',
                     sync:false,
                     type : 'post',
                     data : {ip:$("#hostip").val()},
@@ -160,10 +165,6 @@
 					<div>
 						<button type="button" class="btn btn-primary"
 							id="searchBtn">检索</button>
-						<button type="button" class="btn btn-primary"
-								id="alartTrend" onclick="window.location.href='message/messageTrend.do'">告警趋势图</button>
-						<button type="button" class="btn btn-primary"
-								id="logList" onclick="window.location.href='/log/logList.do'">报错日志</button>
 					</div>
 				</div>
 			</div>

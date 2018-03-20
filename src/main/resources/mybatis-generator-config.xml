@@ -14,30 +14,30 @@
         </commentGenerator>
 
         <!-- 数据库的相关配置 -->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.169.130:3306/piwik" userId="piwik" password="123456"/>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://182.254.223.11:3306/test" userId="stt" password="123456"/>
 
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
         <!-- 实体类生成的位置 -->
-        <javaModelGenerator targetPackage="com.snc.entity" targetProject="/Users/taotaosun/Desktop/ssm/src/main/java">
+        <javaModelGenerator targetPackage="com.snc.entity" targetProject="/Users/taotaosun/Documents/snc_data/code/ssm/src/main/java">
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
         <!-- *Mapper.xml 文件的位置 -->
-        <sqlMapGenerator targetPackage="com.snc.mapping" targetProject="/Users/taotaosun/Desktop/ssm/src/main/java">
+        <sqlMapGenerator targetPackage="com.snc.mapping" targetProject="/Users/taotaosun/Documents/snc_data/code/ssm/src/main/java">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
 
         <!-- Mapper 接口文件的位置 -->
-        <javaClientGenerator targetPackage="com.snc.dao" targetProject="/Users/taotaosun/Desktop/ssm/src/main/java" type="XMLMAPPER">
+        <javaClientGenerator targetPackage="com.snc.dao" targetProject="/Users/taotaosun/Documents/snc_data/code/ssm/src/main/java" type="XMLMAPPER">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
 
         <!-- 相关表的配置 -->
-        <table tableName="message" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+        <table tableName="log" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false"/>
     </context>
 </generatorConfiguration>

@@ -1,0 +1,32 @@
+package com.snc.service;
+
+import com.github.pagehelper.PageInfo;
+import com.snc.entity.Log;
+
+import java.util.List;
+import java.util.Map;
+
+public interface LogService {
+
+    /**
+     * 分页查询log列表
+     * @param queryMap
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    PageInfo<Log> queryByPage(Map queryMap, Integer pageNo, Integer pageSize);
+
+    /**
+     * ip列表
+     * @return
+     */
+    List<String> selectHostips();
+
+    /**
+     * 查询指定ip的端口列表
+     * @param ip
+     * @return
+     */
+    List<String> selectPortByIp(String ip);
+}
