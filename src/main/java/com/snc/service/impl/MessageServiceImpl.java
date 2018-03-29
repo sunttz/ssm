@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.snc.dao.MessageDao;
 import com.snc.entity.Message;
 import com.snc.service.MessageService;
+import com.snc.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +19,24 @@ public class MessageServiceImpl implements MessageService {
     MessageDao messageDao;
 
     @Override
-    public PageInfo<Message> queryByPage(Map queryMap, Integer pageNo, Integer pageSize) {
+    public Page<Message> queryByPage(Map queryMap, Integer pageNo, Integer pageSize) {
         pageNo = pageNo == null ? 1 : pageNo;
         pageSize = pageSize == null ? 20 : pageSize;
-        PageHelper.startPage(pageNo, pageSize);
+        int currIndex = (pageNo-1) * pageSize;
+        queryMap.put("currIndex", currIndex);
+        queryMap.put("pageSize", pageSize);
+
+        // PageHelper.startPage(pageNo, pageSize);
         List<Message> messages = messageDao.selectMessages(queryMap);
+        int count = messageDao.selectMessageCount(queryMap);
+        int totalPageNum = (count  +  pageSize  - 1) / pageSize;
         //用PageInfo对结果进行包装
-        PageInfo<Message> page = new PageInfo<Message>(messages);
+        //PageInfo<Message> page = new PageInfo<Message>(messages);
+        Page<Message> page = new Page<>();
+        page.setTotal(totalPageNum);
+        page.setRows(messages);
+        page.setPage(pageNo);
+        page.setRecords(count);
         return page;
     }
 

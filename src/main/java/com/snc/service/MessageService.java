@@ -1,13 +1,13 @@
 package com.snc.service;
 
-import com.github.pagehelper.PageInfo;
 import com.snc.entity.Message;
+import com.snc.util.Page;
 
 import java.util.List;
 import java.util.Map;
 
 public interface MessageService {
-    PageInfo<Message> queryByPage(Map queryMap, Integer pageNo, Integer pageSize);
+    Page<Message> queryByPage(Map queryMap, Integer pageNo, Integer pageSize);
 
     /**
      * ip列表

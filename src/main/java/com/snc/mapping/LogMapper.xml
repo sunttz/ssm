@@ -67,6 +67,26 @@
     </if>
     ORDER BY id DESC
   </select>
+  <!-- 查询log数量 -->
+  <select id="selectLogsCount" parameterType="java.util.HashMap"
+          resultType="java.lang.Integer">
+    SELECT
+      COUNT(*) NUM
+    FROM log
+    WHERE 1 = 1
+    <if test="starttime != null and starttime !=''">
+      AND jmxtime >= #{starttime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="endtime != null and endtime !=''">
+      AND jmxtime &lt; #{endtime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="hostip != null and hostip !=''">
+      AND hostip = #{hostip,jdbcType=VARCHAR}
+    </if>
+    <if test="port != null and port !=''">
+      AND port = #{port,jdbcType=VARCHAR}
+    </if>
+  </select>
   <!-- 查询hostip列表 -->
   <select id="selectHostips" resultType="java.lang.String">
     SELECT hostip

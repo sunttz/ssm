@@ -63,6 +63,13 @@ public interface MessageDao {
     List<Message> selectMessages(Map queryMap);
 
     /**
+     * 查询message数量
+     * @param queryMap
+     * @return
+     */
+    int selectMessageCount(Map queryMap);
+
+    /**
      * ip列表
      * @return
      */

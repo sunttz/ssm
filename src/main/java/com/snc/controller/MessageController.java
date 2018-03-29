@@ -1,8 +1,8 @@
 package com.snc.controller;
 
-import com.github.pagehelper.PageInfo;
 import com.snc.entity.Message;
 import com.snc.service.MessageService;
+import com.snc.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,8 +46,8 @@ public class MessageController {
         if (!StringUtils.isEmpty(port)) {
             queryMap.put("port", port);
         }
-        PageInfo<Message> messagePageInfo = messageService.queryByPage(queryMap, pageNo, pageSize);
-        return messagePageInfo;
+        Page<Message> messagePage = messageService.queryByPage(queryMap, pageNo, pageSize);
+        return messagePage;
     }
 
     @RequestMapping(value = "/getHostips")

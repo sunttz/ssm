@@ -63,6 +63,13 @@ public interface LogDao {
     List<Log> selectLogs(Map queryMap);
 
     /**
+     * 查询log数量
+     * @param queryMap
+     * @return
+     */
+    int selectLogsCount(Map queryMap);
+
+    /**
      * ip列表
      * @return
      */

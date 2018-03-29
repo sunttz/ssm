@@ -40,12 +40,12 @@
                 viewrecords: true,
                 caption: "检索结果",//表格的标题名字
                 autoWidth: true,
-                jsonReader: {
-                    root: "list",   // json中代表实际模型数据的入口
-                    page: "pageNum",   // json中代表当前页码的数据
-                    total: "pages", // json中代表页码总数的数据
-                    records: "total" // json中代表数据行总数的数据
-                }
+//                jsonReader: {
+//                    root: "list",   // json中代表实际模型数据的入口
+//                    page: "pageNum",   // json中代表当前页码的数据
+//                    total: "pages", // json中代表页码总数的数据
+//                    records: "total" // json中代表数据行总数的数据
+//                }
             };
 			//创建jqGrid组件
 			jQuery("#pageGrid").jqGrid(jqOption).setGridWidth($(window).width()-200);

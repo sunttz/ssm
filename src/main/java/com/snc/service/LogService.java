@@ -1,7 +1,7 @@
 package com.snc.service;
 
-import com.github.pagehelper.PageInfo;
 import com.snc.entity.Log;
+import com.snc.util.Page;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +15,7 @@ public interface LogService {
      * @param pageSize
      * @return
      */
-    PageInfo<Log> queryByPage(Map queryMap, Integer pageNo, Integer pageSize);
+    Page<Log> queryByPage(Map queryMap, Integer pageNo, Integer pageSize);
 
     /**
      * ip列表

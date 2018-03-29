@@ -1,8 +1,8 @@
 package com.snc.controller;
 
-import com.github.pagehelper.PageInfo;
 import com.snc.entity.Log;
 import com.snc.service.LogService;
+import com.snc.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,8 +51,8 @@ public class LogController {
         if (!StringUtils.isEmpty(port)) {
             queryMap.put("port", port);
         }
-        PageInfo<Log> logPageInfo = logService.queryByPage(queryMap, pageNo, pageSize);
-        return logPageInfo;
+        Page<Log> logPage = logService.queryByPage(queryMap, pageNo, pageSize);
+        return logPage;
     }
 
     @RequestMapping(value = "/getHostips")
