@@ -11,7 +11,7 @@
                 url: '${base}/log/getLogList.do',//组件创建完成之后请求数据的url
                 datatype: "json",//请求数据返回的类型。可选json,xml,txt
                 postData: {starttime: '', endtime: ''},
-                colNames: [ 'IP', '主机名称', '端口', "报错子系统", '报错用户', "报错级别", "线程",'报错编码','报错内容','报错时间'],//jqGrid的列显示名字
+                colNames: [ 'IP', '主机名称', '端口', "报错子系统", '报错用户', "报错级别", "线程",'报错编码','报错内容','报错时间','操作'],//jqGrid的列显示名字
                 colModel: [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
                     {name: 'hostip', index: 'hostip', width: '10%', align: "center"},
                     {name: 'servername', index: 'servername', width: '12%', align: "center"},
@@ -24,7 +24,7 @@
                     {name: 'severity', index: 'severity', width: '8%', align: "center"},
                     {name: 'thread', index: 'thread', width: '15%', align: "center"},
                     {name: 'msgid', index: 'msgid', width: '8%', align: "center"},
-                    {name: 'message', index: 'message', width: '20%', align: "center"},
+                    {name: 'message', index: 'message', width: '15%', align: "center"},
                     {
                         name: 'jmxtime',
                         index: 'jmxtime',
@@ -33,7 +33,11 @@
                         formatter: function (cellvalue, options, row) {
                             return getLocalTime(cellvalue)
                         }
-                    }
+                    },{name: 'operate', width: '8%', align: "center",
+						formatter: function (cellvalue, options, row){
+                        	return '<a href="javascript:void(0);" onclick="viewMessage(\''
+                                +row.message+'\')">查看报错</a>';
+						}}
                 ],
                 rowNum: 50,//一页显示多少条
                 rownumbers: true,
@@ -127,10 +131,24 @@
                 });
             });
 
+            $("#copyMessage").on('click',function(){
+                //var message = $("#mainMessage").val();
+                var obj = document.getElementById("mainMessage");
+                obj.select();
+                document.execCommand("Copy");
+            });
+
 		});
 
         function getLocalTime(nS) {
             return new Date(parseInt(nS)).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
+        }
+
+        function viewMessage(message) {
+            $("#mainMessage").val(message);
+			$('#myModal').modal({
+				keyboard: true
+			});
         }
 	</script>
 </head>
@@ -175,4 +193,23 @@
 		</div>
 	</form>
 </body>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">报错内容</h4>
+			</div>
+			<div class="modal-body" id="mainText" style="word-break: break-all; word-wrap:break-word;">
+				<textarea id="mainMessage" rows="15" cols="78"></textarea>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" id="copyMessage">复制</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 </html>
