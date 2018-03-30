@@ -66,6 +66,7 @@
       AND port = #{port,jdbcType=VARCHAR}
     </if>
     ORDER BY id DESC
+    LIMIT #{currIndex} , #{pageSize}
   </select>
   <!-- 查询log数量 -->
   <select id="selectLogsCount" parameterType="java.util.HashMap"
