@@ -122,16 +122,112 @@
                 });
             });
 
+            threadDzException();
+
 		});
+
+		// 前5分钟内独占线程告警
+		function threadDzException() {
+            $("#threadDzException").html("<tr><td colspan='6'>加载中...</td></tr>");
+            $.ajax({
+                url:'${base}/message/getThreadDzException.do',
+                sync: false,
+                type : 'post',
+                data : {},
+                dataType : "json",
+                error : function(data) {
+                    console.info("网络异常");
+                    return false;
+                },
+                success : function(data) {
+                    data = eval(data);
+                    var alarms = "";
+                    debugger;
+                    for(var i=0; i<data.length; i++) {
+                        var alarm = data[i];
+                        var hostip = alarm.hostip;
+                        var port = alarm.port;
+                        var servername = alarm.servername;
+                        var title = alarm.title;
+                        var jmxtime = alarm.jmxtime;
+                        var val = alarm.val;
+                        alarms += "<tr>" +
+									"<td>"+hostip+"</td>" +
+									"<td>"+servername+"</td>" +
+									"<td>"+port+"</td>" +
+									"<td>"+cutString(title,50)+"</td>" +
+                            		"<td>"+val+"</td>" +
+									"<td>"+jmxtime+"</td>" +
+								"</tr>";
+                    }
+					$("#threadDzException").html(alarms);
+                }
+            });
+        }
 
         function getLocalTime(nS) {
             return new Date(parseInt(nS)).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
+        }
+
+        /**参数说明：
+         * 根据长度截取先使用字符串，超长部分追加…
+         * str 对象字符串
+         * len 目标字节长度
+         * 返回值： 处理结果字符串
+         */
+        function cutString(str, len) {
+            //length属性读出来的汉字长度为1
+            if (str.length * 2 <= len) {
+                return str;
+            }
+            var strlen = 0;
+            var s = "";
+            for (var i = 0; i < str.length; i++) {
+                s = s + str.charAt(i);
+                if (str.charCodeAt(i) > 128) {
+                    strlen = strlen + 2;
+                    if (strlen >= len) {
+                        return s.substring(0, s.length - 1) + "...";
+                    }
+                } else {
+                    strlen = strlen + 1;
+                    if (strlen >= len) {
+                        return s.substring(0, s.length - 2) + "...";
+                    }
+                }
+            }
+            return s;
         }
 	</script>
 </head>
 
 <body>
 
+<div class="container" style="margin: 10px 10px 10px 10px;">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">前5分钟内独占线程告警</h3>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>IP</th>
+						<th>主机名称</th>
+						<th>端口</th>
+						<th>标题</th>
+						<th>告警值</th>
+						<th>程序插入时间</th>
+					</tr>
+				</thead>
+				<tbody id="threadDzException">
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+</div>
 	<form action="">
 		<div class="container" style="margin: 10px 10px 10px 10px;">
 

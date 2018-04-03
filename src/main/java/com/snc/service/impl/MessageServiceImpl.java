@@ -54,19 +54,15 @@ public class MessageServiceImpl implements MessageService {
     public List<Map<String, Object>> selectVals(Map queryMap) {
         String alarmType = queryMap.get("alarmType").toString();
         String jqStr = ""; // 截取字符串
-        //String addNum = ""; // 补位数字
         String alarmKey = ""; // 告警关键字
         if("jdbc".equals(alarmType)){
             jqStr = "ConnectionDelayTime = ";
-            //addNum = "22";
             alarmKey = "%JDBC%";
         }else if("jvm".equals(alarmType)){
             jqStr = "HeapFreePercent = ";
-            //addNum = "18";
             alarmKey = "%JVM%";
         }else if("threadDz".equals(alarmType)){
             jqStr = "HoggingThreadCount = ";
-            //addNum = "21";
             alarmKey = "%独占%";
         }else if("weblogic".equals(alarmType)){
             alarmKey = "%weblogic%";
@@ -84,7 +80,6 @@ public class MessageServiceImpl implements MessageService {
             alarmKey = "%执行线程%";
         }
         queryMap.put("jqStr",jqStr);
-        //queryMap.put("addNum",addNum);
         queryMap.put("alarmKey",alarmKey);
 
         List<Map<String, Object>> vals = new ArrayList<>();
@@ -94,5 +89,10 @@ public class MessageServiceImpl implements MessageService {
             vals = messageDao.selectVals(queryMap);
         }
         return vals;
+    }
+
+    @Override
+    public List<Map<String, Object>> selectThreadDzException() {
+        return messageDao.selectThreadDzException();
     }
 }

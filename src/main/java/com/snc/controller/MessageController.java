@@ -109,4 +109,11 @@ public class MessageController {
         ModelAndView modelAndView = new ModelAndView("messageTrend");
         return modelAndView;
     }
+
+    @RequestMapping("/getThreadDzException")
+    @ResponseBody
+    public Object getThreadDzException(){
+        List<Map<String, Object>> maps = messageService.selectThreadDzException();
+        return maps;
+    }
 }

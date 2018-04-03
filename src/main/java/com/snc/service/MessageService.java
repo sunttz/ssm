@@ -27,4 +27,11 @@ public interface MessageService {
      * @return
      */
     List<Map<String, Object>> selectVals(Map queryMap);
+
+    /**
+     * 查询最近5分钟指标超过20的独占线程告警
+     * @return
+     */
+    List<Map<String, Object>> selectThreadDzException();
+
 }
