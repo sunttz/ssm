@@ -148,7 +148,7 @@
              FROM message
              WHERE 1 = 1
                    AND title LIKE '%独占线程%'
-                   AND jmxtime >= now() - INTERVAL 27 DAY -- 5 MINUTE
+                   AND jmxtime >= now() - INTERVAL 5 MINUTE
            ) t
       WHERE val > 20) m2 ON m1.id = m2.id
   </select>

@@ -137,12 +137,12 @@
                 dataType : "json",
                 error : function(data) {
                     console.info("网络异常");
+                    $("#threadDzException").html("<tr><td colspan='6'>加载异常</td></tr>");
                     return false;
                 },
                 success : function(data) {
                     data = eval(data);
                     var alarms = "";
-                    debugger;
                     for(var i=0; i<data.length; i++) {
                         var alarm = data[i];
                         var hostip = alarm.hostip;
