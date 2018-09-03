@@ -67,17 +67,15 @@
   </select>
   <!-- 查询hostip列表 -->
   <select id="selectHostips" resultType="java.lang.String">
-    SELECT hostip
-    FROM (
-           SELECT DISTINCT hostip
-           FROM message) t
+    SELECT DISTINCT hostip
+    FROM message_hostip_port
     ORDER BY hostip
   </select>
   <!-- 查询端口列表 -->
   <select id="selectPortByIp" parameterType="java.lang.String" resultType="java.lang.String">
-    SELECT port
-    FROM (SELECT DISTINCT port
-          FROM message
+    SELECT DISTINCT port
+    FROM (SELECT port
+          FROM message_hostip_port
           WHERE hostip = #{ip,jdbcType=VARCHAR}) aa
     ORDER BY port
   </select>
